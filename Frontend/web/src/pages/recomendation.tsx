@@ -3,6 +3,10 @@ import { useEffect, useState, useMemo } from "react";
 import axios from "axios";
 import Card from "../components/Card";
 import { Link } from "react-router-dom";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import { Navigation } from 'swiper/modules';
 
 type Book = {
   _id: string;
@@ -67,13 +71,7 @@ const Recomendation = () => {
 
   const recommendedBooks = useMemo(() => {
     const genresReservados = [...new Set(reservedAndLoanedBooks.map((b) => b.genre))];
-    const idsUsados = reservedAndLoanedBooks.map((b) => b._id);
-
-    return books.filter(
-      (book) =>
-        !idsUsados.includes(book._id) &&
-        genresReservados.includes(book.genre)
-    );
+    return books.filter((book) => genresReservados.includes(book.genre));
   }, [books, reservedAndLoanedBooks]);
 
   return (
@@ -89,18 +87,31 @@ const Recomendation = () => {
 
       <div className="w-full max-w-6xl">
         {recommendedBooks.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
+          <Swiper
+            modules={[Navigation]}
+            spaceBetween={20}
+            navigation
+            breakpoints={{
+              320: { slidesPerView: 1 },
+              640: { slidesPerView: 2 },
+              768: { slidesPerView: 3 },
+              1024: { slidesPerView: 4 },
+            }}
+          >
             {recommendedBooks.map((book) => (
-              <Card
-                key={book._id}
-                imageUrl={book.portada || "https://via.placeholder.com/150?text=Sin+Portada"}
-                title={book.name}
-                author={book.autor}
-                className="w-full shadow-lg transition-transform duration-300 hover:scale-105"
-                price={""}
-              />
+              <SwiperSlide key={book._id}>
+                <div className="w-full">
+                  <Card
+                    imageUrl={book.portada || "https://via.placeholder.com/150?text=Sin+Portada"}
+                    title={book.name}
+                    author={""}
+                    className="w-full shadow-lg transition-transform duration-300 hover:scale-105"
+                    price={""}
+                  />
+                </div>
+              </SwiperSlide>
             ))}
-          </div>
+          </Swiper>
         ) : (
           <p className="text-gray-600 text-center w-full">No hay recomendaciones por ahora.</p>
         )}

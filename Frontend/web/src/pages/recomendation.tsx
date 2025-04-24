@@ -77,9 +77,9 @@ const Recomendation = () => {
   }, [books, reservedAndLoanedBooks]);
 
   return (
-    <div className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden py-8">
-      <div className="flex justify-between items-center w-full max-w-6xl mb-6">
-        <h1 className="text-3xl font-bold text-cyan-700">Recomendaciones</h1>
+    <div className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden py-8 px-4">
+      <div className="flex flex-col sm:flex-row justify-between items-center w-full max-w-6xl mb-6 gap-4 sm:gap-0">
+        <h1 className="text-3xl font-bold text-cyan-700 text-center sm:text-left">Recomendaciones</h1>
         {recommendedBooks.length > 0 && (
           <Link to="/books" className="text-red-500 text-sm">
             Ver Libros
@@ -87,9 +87,9 @@ const Recomendation = () => {
         )}
       </div>
 
-      <div className="relative w-full max-w-6xl">
+      <div className="w-full max-w-6xl">
         {recommendedBooks.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
             {recommendedBooks.map((book) => (
               <Card
                 key={book._id}

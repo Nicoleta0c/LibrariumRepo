@@ -3,7 +3,7 @@ import { Book, Heart, Mail, Phone, MapPin, Facebook, Twitter, Instagram, Link } 
 
 const Footer = () => {
   return (
-    <footer className="bg-gradient-to-r from--800 to-teal-600 text-white">
+    <footer className="bg-gradient-to-r from-cyan-800 to-cyan-600 text-white">
       <div className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Logo y descripción */}

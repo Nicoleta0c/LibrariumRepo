@@ -2,10 +2,6 @@ import '../App.css';
 import { useEffect, useState, useMemo } from "react";
 import axios from "axios";
 import Card from "../components/Card";
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css/navigation';
-import { Navigation } from 'swiper/modules';
 import { Link } from "react-router-dom";
 
 type Book = {
@@ -93,39 +89,18 @@ const Recomendation = () => {
 
       <div className="relative w-full max-w-6xl">
         {recommendedBooks.length > 0 ? (
-          <>
-            <Swiper
-              modules={[Navigation]}
-              navigation={{
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-              }}
-              spaceBetween={20}
-              slidesPerView={1}
-              breakpoints={{
-                640: { slidesPerView: 1 },
-                768: { slidesPerView: 2 },
-                1024: { slidesPerView: 3 },
-              }}
-            >
-              {recommendedBooks.map((book, index) => (
-                <SwiperSlide key={index}>
-                  <div className="flex justify-center">
-                    <Card
-                      imageUrl={book.portada || "https://via.placeholder.com/150?text=Sin+Portada"}
-                      title={book.name}
-                      author={book.autor}
-                      className="w-full h-auto md:w-[250px] lg:w-[300px] shadow-lg transition-transform duration-300 hover:scale-105"
-                      price={""}
-                    />
-                  </div>
-                </SwiperSlide>
-              ))}
-            </Swiper>
-
-            <div className="swiper-button-prev absolute left-[-30px] top-1/2 transform -translate-y-1/2 z-10 cursor-pointer"></div>
-            <div className="swiper-button-next absolute right-[-30px] top-1/2 transform -translate-y-1/2 z-10 cursor-pointer"></div>
-          </>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {recommendedBooks.map((book) => (
+              <Card
+                key={book._id}
+                imageUrl={book.portada || "https://via.placeholder.com/150?text=Sin+Portada"}
+                title={book.name}
+                author={book.autor}
+                className="w-full shadow-lg transition-transform duration-300 hover:scale-105"
+                price={""}
+              />
+            ))}
+          </div>
         ) : (
           <p className="text-gray-600 text-center w-full">No hay recomendaciones por ahora.</p>
         )}
